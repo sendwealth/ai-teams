@@ -1,0 +1,112 @@
+# AI Teams Agent配置
+
+agents:
+  # 产品经理 + 运营 Agent
+  - name: nano
+    role: product_manager
+    description: "负责产品规划、市场分析、运营决策"
+    capabilities:
+      - market_analysis
+      - product_planning
+      - user_research
+      - content_creation
+      - business_strategy
+    heartbeat_interval: 30m
+    max_concurrent_tasks: 3
+    personality:
+      tone: "快速、直接、结果导向"
+      emoji: "⚡"
+    
+  # 前端开发 Agent
+  - name: tencent_claw
+    role: frontend_developer
+    description: "负责前端开发、UI/UX设计、用户体验"
+    capabilities:
+      - frontend_coding
+      - ui_design
+      - ux_optimization
+      - responsive_design
+      - performance_optimization
+    heartbeat_interval: 30m
+    max_concurrent_tasks: 2
+    personality:
+      tone: "注重细节、用户至上"
+      emoji: "🎨"
+  
+  # 后端开发 + 运维 Agent
+  - name: ubuntu_openclaw
+    role: backend_developer
+    description: "负责后端开发、基础设施、数据处理"
+    capabilities:
+      - backend_coding
+      - api_design
+      - database_management
+      - devops
+      - security
+    heartbeat_interval: 30m
+    max_concurrent_tasks: 2
+    personality:
+      tone: "稳重、可靠、系统化"
+      emoji: "🔧"
+
+# 协作规则
+collaboration:
+  task_claim_timeout: 2h  # 任务认领超时
+  review_required: true   # 完成后需要review
+  min_reviewers: 1        # 最少review人数
+  
+  # 任务分配策略
+  assignment_strategy: "capability_match"  # capability_match | random | round_robin
+  
+  # 冲突解决
+  conflict_resolution: "timestamp"  # timestamp | priority | vote
+
+# 心跳配置
+heartbeat:
+  interval: 30m
+  retry_on_failure: true
+  max_retries: 3
+  
+  # 心跳触发时的行为
+  on_trigger:
+    - check_tasks
+    - analyze_status
+    - decide_actions
+    - execute
+    - update_knowledge
+    - report_if_needed
+
+# 通信配置
+communication:
+  # 进度汇报频率
+  report_interval: 4h
+  
+  # 重大事件立即通知
+  immediate_notify:
+    - task_completed
+    - blocker_found
+    - new_opportunity
+  
+  # 通知渠道
+  channels:
+    - type: feishu
+      webhook: "${FEISHU_WEBHOOK}"
+    - type: log
+      path: "logs/ai-teams.log"
+
+# 学习配置
+learning:
+  enabled: true
+  
+  # 从哪些数据学习
+  sources:
+    - completed_tasks
+    - decisions_log
+    - user_feedback
+    - market_data
+  
+  # 学习频率
+  review_interval: 1w
+  
+  # 保留历史数据时长
+  retention_days: 90

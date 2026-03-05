@@ -1,0 +1,39 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+*.egg-info/
+dist/
+build/
+
+# 日志
+logs/
+*.log
+
+# 数据
+data/
+*.db
+*.sqlite
+
+# 配置（敏感信息）
+.env
+config/secrets.yaml
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# macOS
+.DS_Store
+
+# 临时文件
+tmp/
+temp/
+*.tmp
